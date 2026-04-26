@@ -30,7 +30,8 @@ if run_btn:
         df.index = pd.to_datetime(df.index)
         y_test, y_pred, rmse, tomorrow, test_dates = train_and_predict(df)
 
-        current_price = float(df['Close'].iloc[-1])
+        # current_price = float(df['Close'].iloc[-1])
+        current_price = float(df['Close'].squeeze().iloc[-1])
         change_pct    = ((tomorrow - current_price) / current_price) * 100
 
         # Metric cards
