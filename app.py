@@ -24,6 +24,11 @@ if run_btn:
     with st.spinner(f"Fetching data for {ticker}..."):
         df = yf.download(ticker, period=period)
 
+        if not df.empty:
+            # Flatten MultiIndex columns from newer yfinance versions
+            if isinstance(df.columns, pd.MultiIndex):
+                df.columns = df.columns.get_level_values(0)
+
     if df.empty:
         st.error("No data found. Check the ticker symbol.")
     else:
