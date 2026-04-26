@@ -7,6 +7,10 @@ import math
 
 def engineer_features(df):
     df = df.copy()
+
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.get_level_values(0)
+        
     df['MA_7']  = df['Close'].rolling(7).mean()
     df['MA_21'] = df['Close'].rolling(21).mean()
     df['Return'] = df['Close'].pct_change()
